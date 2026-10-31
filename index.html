@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wickivy Staff Team Dashboard</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        wickivy: {
+                            bg: '#FAF7F2',
+                            card: '#FFFFFF',
+                            lavender: '#EADBFC',
+                            pink: '#FDE2E4',
+                            mint: '#E2F0CB',
+                            butter: '#FFF1C5',
+                            purple: '#A882DD',
+                            purpleDark: '#7856AD',
+                            text: '#4A3E56',
+                            muted: '#8C7A9C'
+                        }
+                    },
+                    fontFamily: {
+                        fredoka: ['Fredoka', 'sans-serif'],
+                        quicksand: ['Quicksand', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #FAF7F2;
+            color: #4A3E56;
+            margin: 0;
+            padding: 0;
+        }
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Fredoka', cursive, sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #FAF7F2;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #EADBFC;
+            border-radius: 10px;
+        }
+        .tab-content.hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-12">
+
+    <!-- Header & Top Navigation -->
+    <header class="bg-white border-b border-purple-100 shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-2xl bg-wickivy-lavender flex items-center justify-center text-wickivy-purple text-xl shadow-inner">
+                    <i class="fa-solid font-bold fa-seedling"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-wickivy-purpleDark tracking-wide">Wickivy Staff Command</h1>
+                    <p class="text-xs text-wickivy-muted font-medium">Discord & Minecraft Team Dashboard</p>
+                </div>
+            </div>
+
+            <!-- Quick Status Badge -->
+            <div class="bg-wickivy-pink px-4 py-2 rounded-2xl border border-rose-200 text-rose-900 text-xs font-semibold flex items-center space-x-2 shadow-xs">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse"></span>
+                <span>Minecraft Status: Offline</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto px-4 pt-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Sidebar Navigation -->
+        <aside class="lg:col-span-3 space-y-4">
+            <div class="bg-white rounded-3xl p-4 border border-purple-100 shadow-sm">
+                <h2 class="text-sm font-bold text-wickivy-muted uppercase tracking-wider mb-3 px-2">Dashboard Views</h2>
+                <nav class="space-y-1.5">
+                    <button onclick="switchTab('overview')" id="nav-overview" class="tab-btn w-full text-left px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all flex items-center justify-between bg-wickivy-lavender text-wickivy-purpleDark">
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-chart-pie text-sm"></i> Staff Overview</span>
+                    </button>
+                    <button onclick="switchTab('team')" id="nav-team" class="tab-btn w-full text-left px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all flex items-center justify-between text-wickivy-text hover:bg-wickivy-pink/50">
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-users text-sm"></i> Team Members</span>
+                    </button>
+                    <button onclick="switchTab('roles')" id="nav-roles" class="tab-btn w-full text-left px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all flex items-center justify-between text-wickivy-text hover:bg-wickivy-pink/50">
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-id-badge text-sm"></i> Roles & Responsibilities</span>
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Staff Quick Links Card -->
+            <div class="bg-wickivy-butter/60 rounded-3xl p-4 border border-amber-200 shadow-sm space-y-3">
+                <h3 class="text-xs font-bold text-amber-900 flex items-center gap-1.5">
+                    <i class="fa-solid fa-bolt"></i> Quick Links
+                </h3>
+                <div class="space-y-2 text-xs">
+                    <a href="https://discord.gg/gce9KkG6G" target="_blank" class="block bg-white/80 hover:bg-white p-2.5 rounded-xl border border-amber-200 text-amber-900 font-semibold transition-all flex items-center justify-between">
+                        <span>Open Discord Server</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+                    <a href="https://emiharju-ship-it.github.io/Staff-applications-/" target="_blank" class="block bg-white/80 hover:bg-white p-2.5 rounded-xl border border-amber-200 text-amber-900 font-semibold transition-all flex items-center justify-between">
+                        <span>Staff Applications</span>
+                        <i class="fa-solid fa-file-pen text-[10px]"></i>
+                    </a>
+                    <button onclick="switchTab('roles')" class="w-full text-left bg-white/80 hover:bg-white p-2.5 rounded-xl border border-amber-200 text-amber-900 font-semibold transition-all flex items-center justify-between">
+                        <span>View Staff Guidelines</span>
+                        <i class="fa-solid fa-book text-[10px]"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <section class="lg:col-span-9 space-y-6">
+
+            <!-- TAB 1: STAFF OVERVIEW -->
+            <div id="overview" class="tab-content space-y-6">
+                <!-- Welcome Banner -->
+                <div class="bg-gradient-to-r from-wickivy-lavender via-wickivy-pink to-wickivy-butter p-6 rounded-3xl border border-purple-100 shadow-sm relative overflow-hidden">
+                    <div class="max-w-xl relative z-10">
+                        <span class="bg-white/80 text-wickivy-purpleDark text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Staff Command Center</span>
+                        <h2 class="text-2xl font-bold text-wickivy-purpleDark mt-2 mb-2">Welcome back, Team! 🌿</h2>
+                        <p class="text-xs text-wickivy-text leading-relaxed">
+                            Here is the live pulse of the Wickivy community. Thank you for keeping our Discord and Minecraft spaces safe, warm, and cozy for everyone.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="bg-white p-5 rounded-3xl border border-purple-100 shadow-sm flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-2xl bg-wickivy-lavender flex items-center justify-center text-wickivy-purple text-lg font-bold">
+                            <i class="fa-solid fa-user-shield"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-wickivy-muted font-medium">Active Staff Members</p>
+                            <h3 class="text-xl font-bold text-wickivy-purpleDark mt-0.5">4 Members</h3>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-3xl border border-purple-100 shadow-sm flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-2xl bg-wickivy-pink flex items-center justify-center text-rose-500 text-lg font-bold">
+                            <i class="fa-solid fa-ticket"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-wickivy-muted font-medium">Open Support Tickets</p>
+                            <h3 class="text-xl font-bold text-wickivy-purpleDark mt-0.5">0 Pending</h3>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-3xl border border-purple-100 shadow-sm flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-2xl bg-wickivy-butter flex items-center justify-center text-amber-700 text-lg font-bold">
+                            <i class="fa-solid fa-server"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-wickivy-muted font-medium">Minecraft Status</p>
+                            <h3 class="text-xl font-bold text-amber-700 mt-0.5">Offline</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Department Highlights -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white p-5 rounded-3xl border border-purple-100 shadow-sm space-y-3">
+                        <h3 class="text-sm font-bold text-wickivy-purpleDark flex items-center gap-2">
+                            <i class="fa-solid fa-comments text-wickivy-purple"></i> Discord Moderation Team
+                        </h3>
+                        <p class="text-xs text-wickivy-muted leading-relaxed">
+                            Responsible for welcoming guests within 5 minutes, keeping general chats cozy, reviewing verification tickets, and preventing spam/toxicity.
+                        </p>
+                        <button onclick="switchTab('team')" class="text-xs text-wickivy-purple font-bold hover:underline">View Discord Roster &rarr;</button>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-3xl border border-purple-100 shadow-sm space-y-3">
+                        <h3 class="text-sm font-bold text-wickivy-purpleDark flex items-center gap-2">
+                            <i class="fa-solid fa-cubes text-wickivy-purple"></i> Minecraft Staff Team
+                        </h3>
+                        <p class="text-xs text-wickivy-muted leading-relaxed">
+                            Responsible for ingame player support, land claims assistance, server event management, and ensuring a grief-free environment.
+                        </p>
+                        <button onclick="switchTab('team')" class="text-xs text-wickivy-purple font-bold hover:underline">View Minecraft Roster &rarr;</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: TEAM MEMBERS -->
+            <div id="team" class="tab-content hidden space-y-6">
+                <div class="bg-white rounded-3xl p-6 border border-purple-100 shadow-sm space-y-6">
+                    <div>
+                        <span class="bg-wickivy-lavender text-wickivy-purpleDark text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Roster</span>
+                        <h2 class="text-lg font-bold text-wickivy-purpleDark mt-2">Wickivy Staff Directory</h2>
+                        <p class="text-xs text-wickivy-muted">Meet the friendly faces keeping our community running smoothly.</p>
+                    </div>
+
+                    <!-- Category: Ownership & Management -->
+                    <div class="space-y-3">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-wickivy-purple border-b border-purple-100 pb-2">
+                            <i class="fa-solid fa-crown mr-1"></i> Ownership
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div class="p-3.5 bg-wickivy-bg rounded-2xl border border-purple-50 flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-xl bg-wickivy-lavender flex items-center justify-center text-wickivy-purple font-bold">
+                                        <i class="fa-solid fa-star"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xs font-bold text-wickivy-purpleDark">Owner Angela</h4>
+                                        <p class="text-[10px] text-wickivy-muted">@ttvemh4r</p>
+                                    </div>
+                                </div>
+                                <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2.5 py-1 rounded-full">Online</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category: Admin & Moderation -->
+                    <div class="space-y-3">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-wickivy-purple border-b border-purple-100 pb-2">
+                            <i class="fa-solid fa-shield-halved mr-1"></i> Administration & Moderation
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div class="p-3.5 bg-wickivy-bg rounded-2xl border border-purple-50 flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-xl bg-wickivy-pink flex items-center justify-center text-rose-400 font-bold">
+                                        <i class="fa-solid fa-user-shield"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xs font-bold text-wickivy-purpleDark">Admin Layla</h4>
+                                        <p class="text-[10px] text-wickivy-muted">@rc9stayevil</p>
+                                    </div>
+                                </div>
+                                <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2.5 py-1 rounded-full">Online</span>
+                            </div>
+
+                            <div class="p-3.5 bg-wickivy-bg rounded-2xl border border-purple-50 flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-xl bg-wickivy-pink flex items-center justify-center text-rose-400 font-bold">
+                                        <i class="fa-solid fa-user"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xs font-bold text-wickivy-purpleDark">Mod Cole</h4>
+                                        <p class="text-[10px] text-wickivy-muted">@ezysn</p>
+                                    </div>
+                                </div>
+                                <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-1 rounded-full">Offline</span>
+                            </div>
+
+                            <div class="p-3.5 bg-wickivy-bg rounded-2xl border border-purple-50 flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-xl bg-wickivy-pink flex items-center justify-center text-rose-400 font-bold">
+                                        <i class="fa-solid fa-user"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xs font-bold text-wickivy-purpleDark">Mod Rio</h4>
+                                        <p class="text-[10px] text-wickivy-muted">@the_real_rio_76418</p>
+                                    </div>
+                                </div>
+                                <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2.5 py-1 rounded-full">Online</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category: Builders -->
+                    <div class="space-y-3">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-wickivy-purple border-b border-purple-100 pb-2">
+                            <i class="fa-solid fa-hammer mr-1"></i> Builders
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div class="p-3.5 bg-wickivy-bg rounded-2xl border border-purple-50 flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-xl bg-wickivy-mint flex items-center justify-center text-emerald-600 font-bold">
+                                        <i class="fa-solid fa-hammer"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xs font-bold text-wickivy-purpleDark">Builder Rio</h4>
+                                        <p class="text-[10px] text-wickivy-muted">@the_real_rio_76418</p>
+                                    </div>
+                                </div>
+                                <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2.5 py-1 rounded-full">Online</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: ROLES & RESPONSIBILITIES -->
+            <div id="roles" class="tab-content hidden space-y-6">
+                <div class="bg-white rounded-3xl p-6 border border-purple-100 shadow-sm space-y-6">
+                    <div>
+                        <span class="bg-wickivy-lavender text-wickivy-purpleDark text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Duties</span>
+                        <h2 class="text-lg font-bold text-wickivy-purpleDark mt-2">Staff Roles & Responsibilities</h2>
+                        <p class="text-xs text-wickivy-muted">Understand your core duties and standards across Discord and Minecraft.</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Role 1 -->
+                        <div class="p-4 bg-wickivy-bg rounded-2xl border border-purple-50 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-xs font-bold text-wickivy-purpleDark flex items-center gap-2">
+                                    <i class="fa-solid fa-star text-wickivy-purple"></i> Golden Rule Responsibility (All Staff)
+                                </h3>
+                                <span class="text-[10px] bg-wickivy-lavender text-wickivy-purpleDark px-2.5 py-0.5 rounded-full font-bold">Priority</span>
+                            </div>
+                            <p class="text-xs text-wickivy-text leading-relaxed">
+                                Warmly acknowledge every guest within <strong>5 minutes of entering</strong> the Discord server or joining the Minecraft server. Make sure everyone feels seen and welcomed into our cozy home.
+                            </p>
+                        </div>
+
+                        <!-- Role 2 -->
+                        <div class="p-4 bg-wickivy-bg rounded-2xl border border-purple-50 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-xs font-bold text-wickivy-purpleDark flex items-center gap-2">
+                                    <i class="fa-solid fa-headset text-wickivy-purple"></i> Discord Support & Tickets
+                                </h3>
+                                <span class="text-[10px] bg-wickivy-lavender text-wickivy-purpleDark px-2.5 py-0.5 rounded-full font-bold">Support</span>
+                            </div>
+                            <ul class="text-xs text-wickivy-text space-y-1 list-disc list-inside">
+                                <li>Claim open tickets promptly and maintain an empathetic, calm tone.</li>
+                                <li>Always ask: <em>"Is there anything else I can help you with today?"</em> before closing tickets.</li>
+                                <li>Keep general chats peaceful and redirect heated debates to private messages or cozy topics.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Role 3 -->
+                        <div class="p-4 bg-wickivy-bg rounded-2xl border border-purple-50 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-xs font-bold text-wickivy-purpleDark flex items-center gap-2">
+                                    <i class="fa-solid fa-cube text-wickivy-purple"></i> Minecraft In-Game Support & Claims
+                                </h3>
+                                <span class="text-[10px] bg-wickivy-lavender text-wickivy-purpleDark px-2.5 py-0.5 rounded-full font-bold">In-Game</span>
+                            </div>
+                            <ul class="text-xs text-wickivy-text space-y-1 list-disc list-inside">
+                                <li>Assist new players with /spawn, land claiming tutorials, and basic commands.</li>
+                                <li>Investigate land claim disputes or griefing reports calmly using logs.</li>
+                                <li>Log all severe punishments with screenshots or proof in staff channels.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- JavaScript logic -->
+    <script>
+        // Tab Navigation Logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-wickivy-lavender', 'text-wickivy-purpleDark');
+                btn.classList.add('text-wickivy-text');
+            });
+
+            const activeBtn = document.getElementById(`nav-${tabId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-wickivy-lavender', 'text-wickivy-purpleDark');
+                activeBtn.classList.remove('text-wickivy-text');
+            }
+        }
+    </script>
+</body>
+</html>
